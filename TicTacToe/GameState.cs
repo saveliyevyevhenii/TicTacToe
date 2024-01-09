@@ -24,11 +24,20 @@ namespace TicTacToe
 
         public GameState()
         {
-            GameGrid = new Player[3,3];
+            GameGrid = new Player[3, 3];
             CurrentPlayer = Player.X;
             TurnsPassed = 0;
             GameOver = false;
         }
+
+        private bool CanMakeMove(int row, int column) => !GameOver && GameGrid[row, column] == Player.None;
+
+        private bool IsGridFull() => TurnsPassed == 9;
+
+        private void SwitchPlayer() => CurrentPlayer ^= Player.X ^ Player.O;
+
+        private bool areSquaresMarkered((int, int)[] squares, Player player) 
+            => squares.All(square => GameGrid[square.Item1, square.Item2] != player);
 
 
     }

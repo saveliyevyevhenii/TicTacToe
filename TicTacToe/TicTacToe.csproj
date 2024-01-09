@@ -56,6 +56,7 @@
       <SubType>Designer</SubType>
     </ApplicationDefinition>
     <Compile Include="GameResult.cs" />
+    <Compile Include="GameState.cs" />
     <Compile Include="WinInfo.cs" />
     <Compile Include="WinType.cs" />
     <Page Include="MainWindow.xaml">

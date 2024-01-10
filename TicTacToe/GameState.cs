@@ -99,5 +99,13 @@ namespace TicTacToe
             MoveMade?.Invoke(row, column);
         }
 
+        public void Reset()
+        {
+            GameGrid = new Player[3, 3];
+            CurrentPlayer = Player.X;
+            TurnsPassed = 0;
+            GameOver = false;
+            GameRestarted?.Invoke();
+        }
     }
 }

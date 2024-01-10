@@ -55,10 +55,10 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
-    <Compile Include="GameResult.cs" />
+    <Compile Include="Models\GameResult.cs" />
     <Compile Include="GameState.cs" />
-    <Compile Include="WinInfo.cs" />
-    <Compile Include="WinType.cs" />
+    <Compile Include="Models\WinInfo.cs" />
+    <Compile Include="Enums\WinType.cs" />
     <Page Include="MainWindow.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
@@ -73,7 +73,7 @@
     </Compile>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Player.cs" />
+    <Compile Include="Enums\Player.cs" />
     <Compile Include="Properties\AssemblyInfo.cs">
       <SubType>Code</SubType>
     </Compile>

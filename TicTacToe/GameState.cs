@@ -77,5 +77,27 @@ namespace TicTacToe
             gameResult = null;
             return false;
         }
+
+        public void MakeMove(int row, int column)
+        {
+            if (!CanMakeMove(row, column))
+                return;
+
+            GameGrid[row, column] = CurrentPlayer;
+            TurnsPassed++;
+
+            if (DidMoveEndGame(row, column, out GameResult gameResult))
+            {
+                GameOver = true;
+                GameEnded?.Invoke(gameResult);
+            }
+            else
+            {
+                SwitchPlayer();
+            }
+
+            MoveMade?.Invoke(row, column);
+        }
+
     }
 }

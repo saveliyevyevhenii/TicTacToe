@@ -61,5 +61,21 @@ namespace TicTacToe
             return false;
         }
 
+        private bool DidMoveEndGame(int row, int column, out GameResult gameResult)
+        {
+            if (DidMoveWin(row, column, out WinInfo winInfo))
+            {
+                gameResult = new GameResult { Winner = CurrentPlayer, WinInfo = winInfo };
+                return true;
+            }
+            if (IsGridFull())
+            {
+                gameResult = new GameResult { Winner = Player.None };
+                return true;
+            }
+
+            gameResult = null;
+            return false;
+        }
     }
 }

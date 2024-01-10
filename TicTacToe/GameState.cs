@@ -36,9 +36,30 @@ namespace TicTacToe
 
         private void SwitchPlayer() => CurrentPlayer ^= Player.X ^ Player.O;
 
-        private bool areSquaresMarkered((int, int)[] squares, Player player) 
+        private bool AreSquaresMarkered((int, int)[] squares, Player player) 
             => squares.All(square => GameGrid[square.Item1, square.Item2] != player);
 
+        private bool DidMoveWin(int row, int column, out WinInfo winInfo)
+        {
+            var winPatterns = new[]
+            {
+                new { Type = WinType.Row, Squares = new[] { (row, 0), (row, 1), (row, 2) } },
+                new { Type = WinType.Column, Squares = new[] { (0, column), (1, column), (2, column) } },
+                new { Type = WinType.MainDiagonal, Squares = new[] { (0, 0), (1, 1), (2, 2) } },
+                new { Type = WinType.AntiDiagonal, Squares = new[] { (0, 2), (1, 1), (2, 0) } }
+            };
+
+            var winningPattern = winPatterns.FirstOrDefault(pattern => AreSquaresMarkered(pattern.Squares, CurrentPlayer));
+
+            if (winningPattern != null)
+            {
+                winInfo = new WinInfo { Type = winningPattern.Type, Number = winningPattern.Type == WinType.Row ? row : column };
+                return true;
+            }   
+
+            winInfo = null;
+            return false;
+        }
 
     }
 }

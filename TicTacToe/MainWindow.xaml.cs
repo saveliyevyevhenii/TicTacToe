@@ -28,6 +28,16 @@ namespace TicTacToe
         public MainWindow()
         {
             InitializeComponent();
+            SetupGameGrid();
+        }
+
+        private void SetupGameGrid()
+        {
+            Enumerable.Range(0, 3)
+                .SelectMany(row => Enumerable.Range(0, 3)
+                    .Select(col => imageControls[row, col] = new Image()))
+                .ToList()
+                .ForEach(imageControl => GameGrid.Children.Add(imageControl));
         }
 
         private void GameGrid_MouseDown(object sender, MouseButtonEventArgs e)

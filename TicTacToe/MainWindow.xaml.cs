@@ -17,6 +17,14 @@ namespace TicTacToe
 {
     public partial class MainWindow : Window
     {
+        private readonly Dictionary<Player, ImageSource> imageSources = new()
+        {
+            {Player.X, new BitmapImage(new Uri("pack//application:,,,/assets/x15.png")) },
+            {Player.O, new BitmapImage(new Uri("pack//application:,,,/assets/o15.png")) }
+        };
+        private readonly Image[,] imageControls = new Image[3,3];
+        private readonly GameState gameState = new GameState();
+
         public MainWindow()
         {
             InitializeComponent();

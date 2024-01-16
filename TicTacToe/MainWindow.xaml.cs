@@ -40,6 +40,21 @@ namespace TicTacToe
                 .ForEach(imageControl => GameGrid.Children.Add(imageControl));
         }
 
+        private void OnMoveMade(int row, int col)
+        {
+
+        }
+
+        private void OnGameEnded(GameResult gameResult)
+        {
+
+        }
+
+        private void OnGameRestarted()
+        {
+            
+        }
+
         private void GameGrid_MouseDown(object sender, MouseButtonEventArgs e)
         {
 

@@ -25,5 +25,8 @@
                 </UniformGrid.Background>
             </UniformGrid>
         </Canvas>
+
+        <Line x:Name="Line" Stroke="{StaticResource LineColor}" StrokeThickness="10" 
+              StrokeStartLineCap="Round" StrokeEndLineCap="Round" Visibility="Hidden"/>
     </Grid>
 </Window>

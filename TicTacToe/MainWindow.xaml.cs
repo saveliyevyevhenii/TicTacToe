@@ -78,8 +78,14 @@ namespace TicTacToe
             }
         }
 
-        private void OnGameEnded(GameResult gameResult)
+        private async void OnGameEnded(GameResult gameResult)
         {
+            await Task.Delay(500);
+            
+            TransitionToEndScreen(
+                gameResult.Winner == Player.None ? "Draw!" : "Winner:",
+                gameResult.Winner == Player.None ? null : _imageSources[gameResult.Winner]
+            );
         }
 
         private void OnGameRestarted()

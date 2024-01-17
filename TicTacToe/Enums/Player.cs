@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 
 namespace TicTacToe
 {
+    [Flags]
     public enum Player
     {
         None, X, O

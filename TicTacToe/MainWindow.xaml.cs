@@ -30,6 +30,10 @@ namespace TicTacToe
         {
             InitializeComponent();
             SetupGameGrid();
+
+            _gameState.MoveMade += OnMoveMade;
+            _gameState.GameEnded += OnGameEnded;
+            _gameState.GameRestarted += OnGameRestarted;
         }
 
         private void SetupGameGrid()

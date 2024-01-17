@@ -36,6 +36,14 @@ namespace TicTacToe
             _gameState.GameRestarted += OnGameRestarted;
         }
 
+        private void TransitionToEndScreen(string text, ImageSource winnerImage)
+        {
+            TurnPannel.Visibility = GameCanvas.Visibility = Visibility.Hidden;
+            ResultText.Text = text;
+            WinnerImage.Source = winnerImage;
+            EndScreen.Visibility = Visibility.Visible;
+        }
+
         private void SetupGameGrid()
         {
             Enumerable.Range(0, 3)

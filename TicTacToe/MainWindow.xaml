@@ -29,7 +29,7 @@
                     StrokeStartLineCap="Round" StrokeEndLineCap="Round" Visibility="Hidden"/>
         </Canvas>
 
-        <Grid x:Name="EndScreen" Grid.RowSpan="2" Background="{StaticResource BackgroundColor}">
+        <Grid x:Name="EndScreen" Grid.RowSpan="2" Background="{StaticResource BackgroundColor}" Visibility="Hidden">
             <StackPanel Orientation="Vertical" VerticalAlignment="Center">
                 <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
                     <TextBlock x:Name="ResultText" FontSize="54" Text="Winner: " Margin="0,0,0,15"/>
@@ -37,7 +37,7 @@
                 </StackPanel>
 
                 <Button Content="Play Again" Background="{StaticResource ButtonColor}" FontSize="34" Width="200"
-                    Margin="0,20,0,0" Padding="0,0,0,5" BorderBrush="Black" Click="Button_Click" Visibility="Hidden"/>
+                    Margin="0,20,0,0" Padding="0,0,0,5" BorderBrush="Black" Click="Button_Click"/>
             </StackPanel>
         </Grid>
     </Grid>

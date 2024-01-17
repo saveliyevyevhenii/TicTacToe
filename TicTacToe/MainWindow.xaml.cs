@@ -44,6 +44,12 @@ namespace TicTacToe
             EndScreen.Visibility = Visibility.Visible;
         }
 
+        private void TransitionToGameScreen()
+        {
+            EndScreen.Visibility = Visibility.Hidden;
+            TurnPannel.Visibility = GameCanvas.Visibility = Visibility.Visible;
+        }
+
         private void SetupGameGrid()
         {
             Enumerable.Range(0, 3)
@@ -112,6 +118,7 @@ namespace TicTacToe
 
         private void Button_Click(object sender, RoutedEventArgs e)
         {
+            _gameState.Reset();
         }
     }
 }

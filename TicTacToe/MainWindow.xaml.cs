@@ -87,7 +87,7 @@ namespace TicTacToe
         private async void OnGameEnded(GameResult gameResult)
         {
             await Task.Delay(500);
-            
+
             TransitionToEndScreen(
                 gameResult.Winner == Player.None ? "Draw!" : "Winner:",
                 gameResult.Winner == Player.None ? null : _imageSources[gameResult.Winner]
@@ -96,6 +96,13 @@ namespace TicTacToe
 
         private void OnGameRestarted()
         {
+            foreach (var imageControl in _imageControls.Cast<Image>())
+            {
+                imageControl.Source = null;
+            }
+
+            PlayerImage.Source = _imageSources[_gameState.CurrentPlayer];
+            TransitionToGameScreen();
         }
 
         private void GameGrid_MouseDown(object sender, MouseButtonEventArgs e)

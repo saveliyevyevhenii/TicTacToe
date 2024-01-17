@@ -17,13 +17,14 @@ namespace TicTacToe
 {
     public partial class MainWindow : Window
     {
-        private readonly Dictionary<Player, ImageSource> imageSources = new()
+        private readonly Dictionary<Player, ImageSource> _imageSources = new()
         {
             { Player.X, new BitmapImage(new Uri("pack://application:,,,/Assets/X15.png")) },
             { Player.O, new BitmapImage(new Uri("pack://application:,,,/Assets/O15.png")) }
         };
-        private readonly Image[,] imageControls = new Image[3,3];
-        private readonly GameState gameState = new GameState();
+
+        private readonly Image[,] _imageControls = new Image[3, 3];
+        private readonly GameState _gameState = new GameState();
 
         public MainWindow()
         {
@@ -35,34 +36,29 @@ namespace TicTacToe
         {
             Enumerable.Range(0, 3)
                 .SelectMany(row => Enumerable.Range(0, 3)
-                    .Select(col => imageControls[row, col] = new Image()))
+                    .Select(col => _imageControls[row, col] = new Image()))
                 .ToList()
                 .ForEach(imageControl => GameGrid.Children.Add(imageControl));
         }
 
         private void OnMoveMade(int row, int col)
         {
-
         }
 
         private void OnGameEnded(GameResult gameResult)
         {
-
         }
 
         private void OnGameRestarted()
         {
-            
         }
 
         private void GameGrid_MouseDown(object sender, MouseButtonEventArgs e)
         {
-
         }
 
         private void Button_Click(object sender, RoutedEventArgs e)
         {
-
         }
     }
 }

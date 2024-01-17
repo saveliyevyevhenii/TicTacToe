@@ -36,8 +36,8 @@ namespace TicTacToe
 
         private void SwitchPlayer() => CurrentPlayer ^= Player.X ^ Player.O;
 
-        private bool AreSquaresMarkered((int, int)[] squares, Player player) 
-            => squares.All(square => GameGrid[square.Item1, square.Item2] != player);
+        private bool AreSquaresMarkered((int, int)[] squares, Player player)
+            => squares.All(square => GameGrid[square.Item1, square.Item2] == player);
 
         private bool DidMoveWin(int row, int column, out WinInfo winInfo)
         {
@@ -49,13 +49,15 @@ namespace TicTacToe
                 new { Type = WinType.AntiDiagonal, Squares = new[] { (0, 2), (1, 1), (2, 0) } }
             };
 
-            var winningPattern = winPatterns.FirstOrDefault(pattern => AreSquaresMarkered(pattern.Squares, CurrentPlayer));
+            var winningPattern = winPatterns.FirstOrDefault(pattern
+                => AreSquaresMarkered(pattern.Squares, CurrentPlayer));
 
             if (winningPattern != null)
             {
-                winInfo = new WinInfo { Type = winningPattern.Type, Number = winningPattern.Type == WinType.Row ? row : column };
+                winInfo = new WinInfo
+                    { Type = winningPattern.Type, Number = winningPattern.Type == WinType.Row ? row : column };
                 return true;
-            }   
+            }
 
             winInfo = null;
             return false;
@@ -63,11 +65,12 @@ namespace TicTacToe
 
         private bool DidMoveEndGame(int row, int column, out GameResult gameResult)
         {
-            if (DidMoveWin(row, column, out WinInfo winInfo))
+            if (DidMoveWin(row, column, out var winInfo))
             {
                 gameResult = new GameResult { Winner = CurrentPlayer, WinInfo = winInfo };
                 return true;
             }
+
             if (IsGridFull())
             {
                 gameResult = new GameResult { Winner = Player.None };
@@ -86,7 +89,7 @@ namespace TicTacToe
             GameGrid[row, column] = CurrentPlayer;
             TurnsPassed++;
 
-            if (DidMoveEndGame(row, column, out GameResult gameResult))
+            if (DidMoveEndGame(row, column, out var gameResult))
             {
                 GameOver = true;
                 GameEnded?.Invoke(gameResult);

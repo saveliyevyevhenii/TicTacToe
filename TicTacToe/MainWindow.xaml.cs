@@ -47,6 +47,27 @@ namespace TicTacToe
 
         private void OnMoveMade(int row, int col)
         {
+            if (_gameState == null || _imageControls == null || _imageSources == null || PlayerImage == null)
+            {
+                return;
+            }
+
+            UpdateGameGrid(row, col);
+            UpdatePlayerImage();
+        }
+
+        private void UpdateGameGrid(int row, int col)
+        {
+            var currentPlayer = _gameState.GameGrid[row, col];
+            _imageControls[row, col].Source = _imageSources[currentPlayer];
+        }
+
+        private void UpdatePlayerImage()
+        {
+            if (_imageSources.TryGetValue(_gameState.CurrentPlayer, value: out var source))
+            {
+                PlayerImage.Source = source;
+            }
         }
 
         private void OnGameEnded(GameResult gameResult)

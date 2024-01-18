@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using TicTacToe.Enums;
+using TicTacToe.Models;
 
 namespace TicTacToe
 {

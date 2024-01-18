@@ -46,7 +46,7 @@ namespace TicTacToe
 
         private void TransitionToGameScreen()
         {
-            EndScreen.Visibility = Visibility.Hidden;
+            EndScreen.Visibility = Line.Visibility = Visibility.Hidden;
             TurnPannel.Visibility = GameCanvas.Visibility = Visibility.Visible;
         }
 
@@ -57,6 +57,34 @@ namespace TicTacToe
                     .Select(col => _imageControls[row, col] = new Image()))
                 .ToList()
                 .ForEach(imageControl => GameGrid.Children.Add(imageControl));
+        }
+
+        private (Point start, Point end) FindLinePoints(WinInfo winInfo)
+        {
+            var squareSize = GetSquareSize();
+            var margin = squareSize / 2;
+
+            return winInfo.Type switch
+            {
+                WinType.Row => (new Point(0, winInfo.Number * squareSize + margin),
+                    new Point(GameGrid.Width, winInfo.Number * squareSize + margin)),
+                WinType.Column => (new Point(winInfo.Number * squareSize + margin, 0),
+                    new Point(winInfo.Number * squareSize + margin, GameGrid.Height)),
+                WinType.MainDiagonal => (new Point(0, 0), new Point(GameGrid.Width, GameGrid.Height)),
+                WinType.AntiDiagonal => (new Point(GameGrid.Width, 0), new Point(0, GameGrid.Height)),
+                _ => throw new ArgumentOutOfRangeException()
+            };
+        }
+
+        private void ShowLine(WinInfo winInfo)
+        {
+            var (start, end) = FindLinePoints(winInfo);
+
+            Line.X1 = start.X;
+            Line.Y1 = start.Y;
+            Line.X2 = end.X;
+            Line.Y2 = end.Y;
+            Line.Visibility = Visibility.Visible;
         }
 
         private void OnMoveMade(int row, int col)
@@ -87,6 +115,12 @@ namespace TicTacToe
         private async void OnGameEnded(GameResult gameResult)
         {
             await Task.Delay(500);
+
+            if (gameResult.Winner != Player.None)
+            {
+                ShowLine(gameResult.WinInfo);
+                await Task.Delay(500);
+            }
 
             TransitionToEndScreen(
                 gameResult.Winner == Player.None ? "Draw!" : "Winner:",

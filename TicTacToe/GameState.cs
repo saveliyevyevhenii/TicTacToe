@@ -1,8 +1,5 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using TicTacToe.Enums;
 using TicTacToe.Models;
 
@@ -14,9 +11,9 @@ namespace TicTacToe
 
         public Player CurrentPlayer { get; private set; } = Player.X;
 
-        private int TurnsPassed { get; set; } = 0;
+        private int TurnsPassed { get; set; }
 
-        private bool GameOver { get; set; } = false;
+        private bool GameOver { get; set; }
 
         public event Action<int, int> MoveMade;
 

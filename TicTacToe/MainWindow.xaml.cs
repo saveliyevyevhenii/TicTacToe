@@ -1,24 +1,20 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
 using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Animation;
 using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
 using System.Windows.Shapes;
 using TicTacToe.Enums;
 using TicTacToe.Models;
 
 namespace TicTacToe
 {
-    public partial class MainWindow : Window
+    public partial class MainWindow
     {
         private readonly Dictionary<Player, ImageSource> _imageSources = new()
         {
@@ -232,7 +228,7 @@ namespace TicTacToe
             return GameGrid.Width / 3;
         }
 
-        private (int row, int column) GetClickedSquare(Point clickPosition, double squareSize)
+        private static (int row, int column) GetClickedSquare(Point clickPosition, double squareSize)
         {
             return ((int)(clickPosition.Y / squareSize), (int)(clickPosition.X / squareSize));
         }

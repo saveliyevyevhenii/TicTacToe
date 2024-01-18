@@ -1,14 +1,12 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
-namespace TicTacToe
+namespace TicTacToe.Enums
 {
     [Flags]
     public enum Player
     {
-        None, X, O
+        None,
+        X,
+        O
     }
 }

@@ -15,7 +15,7 @@
                 <RowDefinition Height="*" />
             </Grid.RowDefinitions>
 
-            <StackPanel x:Name="TurnPannel" Orientation="Horizontal" HorizontalAlignment="Center">
+            <StackPanel x:Name="TurnPanel" Orientation="Horizontal" HorizontalAlignment="Center">
                 <TextBlock FontSize="54" Text="Player:" Margin="0,0,0,15" />
                 <Image x:Name="PlayerImage" Source="Assets/X15.png" Height="75" />
             </StackPanel>
@@ -32,7 +32,7 @@
                       StrokeStartLineCap="Round" StrokeEndLineCap="Round" Visibility="Hidden" />
             </Canvas>
 
-            <Grid x:Name="EndScreen" Grid.RowSpan="2" Background="{StaticResource BackgroundColor}" Visibility="Hidden">
+            <Grid x:Name="EndScreen" Grid.Row="0" Grid.RowSpan="2" Background="{StaticResource BackgroundColor}" Visibility="Hidden">
                 <StackPanel Orientation="Vertical" VerticalAlignment="Center">
                     <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
                         <TextBlock x:Name="ResultText" FontSize="54" Text="Winner: " Margin="0,0,0,15" />

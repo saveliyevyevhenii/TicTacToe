@@ -10,27 +10,19 @@ namespace TicTacToe
 {
     public class GameState
     {
-        public Player[,] GameGrid { get; private set; }
+        public Player[,] GameGrid { get; private set; } = new Player[3, 3];
 
-        public Player CurrentPlayer { get; private set; }
+        public Player CurrentPlayer { get; private set; } = Player.X;
 
-        public int TurnsPassed { get; private set; }
+        private int TurnsPassed { get; set; } = 0;
 
-        public bool GameOver { get; private set; }
+        private bool GameOver { get; set; } = false;
 
         public event Action<int, int> MoveMade;
 
         public event Action<GameResult> GameEnded;
 
         public event Action GameRestarted;
-
-        public GameState()
-        {
-            GameGrid = new Player[3, 3];
-            CurrentPlayer = Player.X;
-            TurnsPassed = 0;
-            GameOver = false;
-        }
 
         private bool CanMakeMove(int row, int column) => !GameOver && GameGrid[row, column] == Player.None;
 

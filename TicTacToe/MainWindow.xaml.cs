@@ -137,15 +137,31 @@ namespace TicTacToe
             };
         }
 
-        private void ShowLine(WinInfo winInfo)
+        private async Task ShowLine(WinInfo winInfo)
         {
             var (start, end) = FindLinePoints(winInfo);
 
             Line.X1 = start.X;
             Line.Y1 = start.Y;
-            Line.X2 = end.X;
-            Line.Y2 = end.Y;
+
+            var x2Animation = CreateAnimation(start.X, end.X);
+            var y2Animation = CreateAnimation(start.Y, end.Y);
+
             Line.Visibility = Visibility.Visible;
+            Line.BeginAnimation(Line.X2Property, x2Animation);
+            Line.BeginAnimation(Line.Y2Property, y2Animation);
+
+            await Task.Delay(x2Animation.Duration.TimeSpan);
+        }
+
+        private static DoubleAnimation CreateAnimation(double from, double to)
+        {
+            return new DoubleAnimation
+            {
+                Duration = TimeSpan.FromSeconds(0.25),
+                From = from,
+                To = to
+            };
         }
 
         private void OnMoveMade(int row, int col)
@@ -179,7 +195,7 @@ namespace TicTacToe
 
             if (gameResult.Winner != Player.None)
             {
-                ShowLine(gameResult.WinInfo);
+                await ShowLine(gameResult.WinInfo);
                 await Task.Delay(500);
             }
 

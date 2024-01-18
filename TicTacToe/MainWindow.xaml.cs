@@ -28,6 +28,18 @@ namespace TicTacToe
             { Player.X, new ObjectAnimationUsingKeyFrames() },
             { Player.O, new ObjectAnimationUsingKeyFrames() }
         };
+        private readonly DoubleAnimation _fadeOutAnimation = new DoubleAnimation
+        {
+            Duration = TimeSpan.FromSeconds(0.5),
+            From = 1,
+            To = 0
+        };
+        private readonly DoubleAnimation _fadeInAnimation = new DoubleAnimation
+        {
+            Duration = TimeSpan.FromSeconds(0.5),
+            From = 0,
+            To = 1
+        };
         private readonly Image[,] _imageControls = new Image[3, 3];
         private readonly GameState _gameState = new GameState();
 
@@ -42,18 +54,37 @@ namespace TicTacToe
             _gameState.GameRestarted += OnGameRestarted;
         }
 
-        private void TransitionToEndScreen(string text, ImageSource winnerImage)
+        private async Task AnimateOpacity(UIElement uiElement, AnimationTimeline animation)
         {
-            TurnPannel.Visibility = GameCanvas.Visibility = Visibility.Hidden;
-            ResultText.Text = text;
-            WinnerImage.Source = winnerImage;
-            EndScreen.Visibility = Visibility.Visible;
+            uiElement.BeginAnimation(OpacityProperty, animation);
+            await Task.Delay(animation.Duration.TimeSpan);
         }
 
-        private void TransitionToGameScreen()
+        private async Task FadeOut(UIElement uiElement)
         {
-            EndScreen.Visibility = Line.Visibility = Visibility.Hidden;
-            TurnPannel.Visibility = GameCanvas.Visibility = Visibility.Visible;
+            await AnimateOpacity(uiElement, _fadeOutAnimation);
+            uiElement.Visibility = Visibility.Hidden;
+        }
+
+        private async Task FadeIn(UIElement uiElement)
+        {
+            uiElement.Visibility = Visibility.Visible;
+            await AnimateOpacity(uiElement, _fadeInAnimation);
+        }
+        
+        private async Task TransitionToEndScreen(string text, ImageSource winnerImage)
+        {
+            await Task.WhenAll(FadeOut(TurnPannel), FadeOut(GameCanvas));
+            ResultText.Text = text;
+            WinnerImage.Source = winnerImage;
+            await FadeIn(EndScreen);
+        }
+
+        private async Task TransitionToGameScreen()
+        {
+            await FadeOut(EndScreen);
+            Line.Visibility = Visibility.Hidden;
+            await Task.WhenAll(FadeIn(TurnPannel), FadeIn(GameCanvas));
         }
 
         private void SetupAnimations()
@@ -148,13 +179,13 @@ namespace TicTacToe
                 await Task.Delay(500);
             }
 
-            TransitionToEndScreen(
+            await TransitionToEndScreen(
                 gameResult.Winner == Player.None ? "Draw!" : "Winner:",
                 gameResult.Winner == Player.None ? null : _imageSources[gameResult.Winner]
             );
         }
 
-        private void OnGameRestarted()
+        private async void OnGameRestarted()
         {
             foreach (var imageControl in _imageControls.Cast<Image>())
             {
@@ -163,7 +194,7 @@ namespace TicTacToe
             }
 
             PlayerImage.Source = _imageSources[_gameState.CurrentPlayer];
-            TransitionToGameScreen();
+            await TransitionToGameScreen();
         }
 
         private void GameGrid_MouseDown(object sender, MouseButtonEventArgs e)

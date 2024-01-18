@@ -9,6 +9,7 @@ using System.Windows.Data;
 using System.Windows.Documents;
 using System.Windows.Input;
 using System.Windows.Media;
+using System.Windows.Media.Animation;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
@@ -22,7 +23,11 @@ namespace TicTacToe
             { Player.X, new BitmapImage(new Uri("pack://application:,,,/Assets/X15.png")) },
             { Player.O, new BitmapImage(new Uri("pack://application:,,,/Assets/O15.png")) }
         };
-
+        private readonly Dictionary<Player, ObjectAnimationUsingKeyFrames> _animations = new()
+        {
+            { Player.X, new ObjectAnimationUsingKeyFrames() },
+            { Player.O, new ObjectAnimationUsingKeyFrames() }
+        };
         private readonly Image[,] _imageControls = new Image[3, 3];
         private readonly GameState _gameState = new GameState();
 
@@ -30,7 +35,8 @@ namespace TicTacToe
         {
             InitializeComponent();
             SetupGameGrid();
-
+            SetupAnimations();
+            
             _gameState.MoveMade += OnMoveMade;
             _gameState.GameEnded += OnGameEnded;
             _gameState.GameRestarted += OnGameRestarted;
@@ -50,6 +56,26 @@ namespace TicTacToe
             TurnPannel.Visibility = GameCanvas.Visibility = Visibility.Visible;
         }
 
+        private void SetupAnimations()
+        {
+            _animations[Player.X].Duration = TimeSpan.FromSeconds(0.25);
+            _animations[Player.O].Duration = TimeSpan.FromSeconds(0.25);
+
+            for (var i = 0; i < 16; i++)
+            {
+                SetAnimationKeyFrame(Player.X, $"x{i}.png");
+                SetAnimationKeyFrame(Player.O, $"o{i}.png");
+            }
+        }
+        
+        private void SetAnimationKeyFrame(Player player, string imageName)
+        {
+            var imageUri = new Uri($"pack://application:,,,/Assets/{imageName}");
+            var image = new BitmapImage(imageUri);
+            var keyFrame = new DiscreteObjectKeyFrame(image);
+            _animations[player].KeyFrames.Add(keyFrame);
+        }
+        
         private void SetupGameGrid()
         {
             Enumerable.Range(0, 3)
@@ -101,7 +127,7 @@ namespace TicTacToe
         private void UpdateGameGrid(int row, int col)
         {
             var currentPlayer = _gameState.GameGrid[row, col];
-            _imageControls[row, col].Source = _imageSources[currentPlayer];
+            _imageControls[row, col].BeginAnimation(Image.SourceProperty, _animations[currentPlayer]);
         }
 
         private void UpdatePlayerImage()

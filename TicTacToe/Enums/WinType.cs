@@ -8,6 +8,6 @@ namespace TicTacToe
 {
     public enum WinType
     {
-        Row, Column, MainDiagonal, AntiDiagonal
+        Row, Column, MainDiagonal, AlterDiagonal
     }
 }

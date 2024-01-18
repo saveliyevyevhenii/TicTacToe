@@ -46,7 +46,7 @@ namespace TicTacToe
                 new { Type = WinType.Row, Squares = new[] { (row, 0), (row, 1), (row, 2) } },
                 new { Type = WinType.Column, Squares = new[] { (0, column), (1, column), (2, column) } },
                 new { Type = WinType.MainDiagonal, Squares = new[] { (0, 0), (1, 1), (2, 2) } },
-                new { Type = WinType.AntiDiagonal, Squares = new[] { (0, 2), (1, 1), (2, 0) } }
+                new { Type = WinType.AlterDiagonal, Squares = new[] { (0, 2), (1, 1), (2, 0) } }
             };
 
             var winningPattern = winPatterns.FirstOrDefault(pattern

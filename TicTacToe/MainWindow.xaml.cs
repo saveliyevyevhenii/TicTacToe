@@ -128,7 +128,7 @@ namespace TicTacToe
                 WinType.Column => (new Point(winInfo.Number * squareSize + margin, 0),
                     new Point(winInfo.Number * squareSize + margin, GameGrid.Height)),
                 WinType.MainDiagonal => (new Point(0, 0), new Point(GameGrid.Width, GameGrid.Height)),
-                WinType.AntiDiagonal => (new Point(GameGrid.Width, 0), new Point(0, GameGrid.Height)),
+                WinType.AlterDiagonal => (new Point(GameGrid.Width, 0), new Point(0, GameGrid.Height)),
                 _ => throw new ArgumentOutOfRangeException()
             };
         }

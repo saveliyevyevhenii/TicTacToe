@@ -158,6 +158,7 @@ namespace TicTacToe
         {
             foreach (var imageControl in _imageControls.Cast<Image>())
             {
+                imageControl.BeginAnimation(Image.SourceProperty, null);
                 imageControl.Source = null;
             }
 

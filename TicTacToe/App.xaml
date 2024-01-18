@@ -6,6 +6,6 @@
     <Application.Resources>
         <SolidColorBrush x:Key="BackgroundColor" Color="#934cb7"/>
         <SolidColorBrush x:Key="ButtonColor" Color="#a366c1"/>
-        <SolidColorBrush x:Key="LineColor" Color="#30f849"/>
+        <SolidColorBrush x:Key="LineColor" Color="#C1CADA"/>
     </Application.Resources>
 </Application>

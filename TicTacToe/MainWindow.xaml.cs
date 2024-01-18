@@ -32,14 +32,14 @@ namespace TicTacToe
             { Player.O, new ObjectAnimationUsingKeyFrames() }
         };
 
-        private readonly DoubleAnimation _fadeOutAnimation = new DoubleAnimation
+        private readonly DoubleAnimation _fadeOutAnimation = new()
         {
             Duration = TimeSpan.FromSeconds(0.5),
             From = 1,
             To = 0
         };
 
-        private readonly DoubleAnimation _fadeInAnimation = new DoubleAnimation
+        private readonly DoubleAnimation _fadeInAnimation = new()
         {
             Duration = TimeSpan.FromSeconds(0.5),
             From = 0,
@@ -47,7 +47,7 @@ namespace TicTacToe
         };
 
         private readonly Image[,] _imageControls = new Image[3, 3];
-        private readonly GameState _gameState = new GameState();
+        private readonly GameState _gameState = new();
 
         public MainWindow()
         {
@@ -80,7 +80,7 @@ namespace TicTacToe
 
         private async Task TransitionToEndScreen(string text, ImageSource winnerImage)
         {
-            await Task.WhenAll(FadeOut(TurnPannel), FadeOut(GameCanvas));
+            await Task.WhenAll(FadeOut(TurnPanel), FadeOut(GameCanvas));
             ResultText.Text = text;
             WinnerImage.Source = winnerImage;
             await FadeIn(EndScreen);
@@ -90,7 +90,7 @@ namespace TicTacToe
         {
             await FadeOut(EndScreen);
             Line.Visibility = Visibility.Hidden;
-            await Task.WhenAll(FadeIn(TurnPannel), FadeIn(GameCanvas));
+            await Task.WhenAll(FadeIn(TurnPanel), FadeIn(GameCanvas));
         }
 
         private void SetupAnimations()
